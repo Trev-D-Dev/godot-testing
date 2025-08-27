@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnn6xjndynka4"]
+
+[ext_resource type="PackedScene" uid="uid://y3sgh1rfp147" path="res://assets/models/char_01.glb" id="1_uhqqe"]
+[ext_resource type="Texture2D" uid="uid://dg83h6aq7iwua" path="res://assets/textures/Dirt_01-128x128.png" id="2_ia1lp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ia1lp"]
+radius = 0.210862
+height = 1.87928
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ia1lp"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sasra"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coq8p"]
+albedo_texture = ExtResource("2_ia1lp")
+anisotropy = 0.57
+uv1_scale = Vector3(12.065, 12.065, 12.065)
+
+[node name="Test Scene" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0204, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00219154, -0.133628, -0.0482911)
+shape = SubResource("CapsuleShape3D_ia1lp")
+
+[node name="char_01" parent="CharacterBody3D" instance=ExtResource("1_uhqqe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_ia1lp")
+debug_fill = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(9.89584, 0, 0, 0, 1, 0, 0, 0, 9.96769, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_sasra")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_coq8p")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.92738, 0.374121, 0, -0.374121, 0.92738, 0, 2.26525, 4.68511)
+fov = 82.328
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.92591, 0.291929, -0.239725, 0, 0.634623, 0.772822, 0.377744, -0.715564, 0.587604, -1.86277, 13.3921, 13.0194)
+shadow_enabled = true
